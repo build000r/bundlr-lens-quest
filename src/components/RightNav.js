@@ -10,7 +10,6 @@ const RightNav = () => {
 
 	useEffect(() => {
 		// Hardcoded list of profiles to follow
-		// BUILDOOOORS: Add your own profiles to this list
 		const profiles = [
 			"llamakahlo.test",
 			"llamaanime.test",
@@ -28,20 +27,30 @@ const RightNav = () => {
 	}, []);
 
 	return (
-		<div className="w-3/6 h-screen sticky top-0 pt-5 bg-background px-4">
-			{isConnected && (
-				<>
-					<div className="flex flex-row justify-center font-logo text-6xl mb-3">
-						<SiSpringCreators /> OnlyBundlr
-					</div>
+				<div className="border-l hidden lg:flex lg:flex-shrink-0 top-0 sticky"> 
+			{/*<div className="border-l w-2/6 h-screen sticky top-0 pt-5 bg-background "> */}
 
-					<h1 className="font-main bg-primary rounded-xl pl-1">Suggested Profiles</h1>
-					<div className="flex flex-col">
-						{suggestedProfileHandles.map((suggestedProfileHandle, id) => {
-							return <SuggestedProfile key={id} handle={suggestedProfileHandle} />;
-						})}
+			{isConnected && (
+				<div className="border-b w-full max-w-md p-4 bg-white sm:p-8">
+					<div className="flex items-center justify-between mb-4">
+						<h5 className="text-xl font-bold leading-none text-gray-900">Suggested Profiles</h5>
 					</div>
-				</>
+					<div className="flex flex-col">
+						<ul className="divide-y divide-gray-200">
+
+							{suggestedProfileHandles.map((suggestedProfileHandle, id) => {
+								return (
+									<SuggestedProfile
+										key={id}
+										handle={suggestedProfileHandle}
+									/>
+								);
+							})}
+						</ul>
+
+					</div>
+				</div>
+				
 			)}
 		</div>
 	);

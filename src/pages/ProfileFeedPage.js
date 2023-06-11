@@ -44,37 +44,50 @@ const ProfileFeedPage = () => {
 	}, [profile]);
 
 	return (
-		<div className="w-3/6 bg-background">
-			<div className="top-0 relative bg-primary border border-2 border-secondary px-2 h-62 mt-5 w-fit rounded-xl">
-				<h1 className="font-main">{profile?.handle}</h1>
-				<p className="font-main text-sm">
-					{profile?.stats.totalPublications} Posts * {profile?.stats.totalCollects} Likes *{" "}
-					{profile?.stats.totalFollowers} Followers
-				</p>
-				<img className="z-0 h-32 object-cover" width="600" src={coverPicture} alt="header" />
-				<img
-					className="absolute top-40 z-10 h-15 w-12 rounded-full border-2 border-white "
-					src={profilePicture}
-					alt={currentHandle}
-				/>
+		<div className="w-full">
 
-				{!activeProfileLoading && !profileLoading && profile?.id !== activeProfile?.id && (
-					<div className="flex flex-row justify-end mt-2">
-						{followFee === 0 && <span className="font-main">Follow Fee: FREE</span>}
-						{followFee !== 0 && (
-							<span className="font-main">
-								Follow Fee: {followFee} {followCurrency}
-							</span>
-						)}
-						<FollowButton followee={profile} follower={activeProfile} />
-					</div>
-				)}
-				{profile?.id === activeProfile?.id && (
-					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1 ml-10">{profile?.bio}</h1>
-				)}
-				{profile?.id !== activeProfile?.id && (
-					<h1 className="font-main text-sm mt-2 bg-secondary px-2 py-2 mb-1">{profile?.bio}</h1>
-				)}
+			<div className="top-0 relative h-62 rounded-xl">
+				<img className="z-0 h-32 object-cover w-full"  src={coverPicture} alt="header" />
+				<div className="px-2">
+					<img
+						className="absolute top-20 z-10 h-24 w-24 rounded-full border-2 border-white "
+						src={profilePicture}
+						alt={currentHandle}
+					/>
+
+					{!activeProfileLoading && !profileLoading && profile?.id !== activeProfile?.id && (
+						<div className="flex flex-row justify-end mt-2">
+							{followFee === 0 && <span className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-50">Follow Fee: FREE</span>}
+							{followFee !== 0 && (
+								<span className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+									Follow Fee: {followFee} {followCurrency}
+								</span>
+							)}
+							<FollowButton followee={profile} follower={activeProfile} /> 
+						</div>
+					)}
+					<h1 className="text-gray-900 hover:text-gray-900 group flex items-center px-2 pt-20 pb-1 text-sm font-medium rounded-md">{profile?.name}</h1>
+
+					<h1 className=" text-gray-500 hover:text-gray-900 group flex items-center px-2 text-sm font-medium rounded-md">{profile?.handle}</h1>
+
+					{profile?.id === activeProfile?.id && (
+						<h1 className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">{profile?.bio}</h1>
+					)}
+					{profile?.id !== activeProfile?.id && (
+						<h1 className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">{profile?.bio}</h1>
+					)}
+				</div>
+			</div>
+			<div className="flex justify-left mt-3 px-4 border-b">
+				<a href="#" className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-50">
+					{profile?.stats.totalPublications} Posts
+				</a>
+				<a href="#" className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-50">
+					{profile?.stats.totalCollects} Likes
+				</a>
+				<a href="#" className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-50">
+					{profile?.stats.totalFollowers} Followers
+				</a>
 			</div>
 			{!profileLoading && (profile.followStatus?.isFollowedByMe || profile?.id === activeProfile?.id) && (
 				<PublicationFeed profile={profile} />

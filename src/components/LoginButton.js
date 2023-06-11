@@ -1,34 +1,46 @@
 import { useWalletLogin } from "@lens-protocol/react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
-
+ 
 const LoginButton = () => {
-	const { execute: login, error: loginError, isPending: isLoginPending } = useWalletLogin();
-
+	const {
+		execute: login,
+		error: loginError,
+		isPending: isLoginPending,
+	} = useWalletLogin();
+ 
 	const { isConnected } = useAccount();
 	const { disconnectAsync } = useDisconnect();
-
+ 
 	const { connectAsync } = useConnect({
 		connector: new InjectedConnector(),
 	});
-
+ 
 	// Called when the user clicks "login"
 	const onLoginClick = async () => {
-		// BUILDOOOORS: Complete this
+		if (isConnected) {
+			await disconnectAsync();
+		}
+ 
+		const { connector } = await connectAsync();
+		if (connector instanceof InjectedConnector) {
+			const signer = await connector.getSigner();
+			await login(signer);
+		}
 	};
-
+ 
 	return (
 		<div>
 			{loginError && <p>{loginError}</p>}
 			<button
-				className="font-main ml-2 px-5 text-white rounded-lg bg-primary hover:bg-secondary "
+				className="w-full rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 				disabled={isLoginPending}
 				onClick={onLoginClick}
 			>
-				login
+				Connect Wallet
 			</button>
 		</div>
 	);
 };
-
+ 
 export default LoginButton;

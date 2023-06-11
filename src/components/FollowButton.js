@@ -22,7 +22,7 @@ function FollowButton({ followee, follower }) {
 				limit: TokenAllowanceLimit.EXACT,
 			});
 		}
-		console.log("Executing follow");
+		console.log("Executing follow",followee, follower );
 		await follow();
 	};
 
@@ -36,7 +36,7 @@ function FollowButton({ followee, follower }) {
 				<button
 					onClick={unfollow}
 					disabled={isUnfollowPending || !followee.followStatus.canUnfollow}
-					className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+					className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 					title={
 						!followee.followStatus.canUnfollow
 							? "The previous follow request is not finalized on-chain just yet."
@@ -55,7 +55,7 @@ function FollowButton({ followee, follower }) {
 			<button
 				onClick={approveAndFollow}
 				disabled={isFollowPending || !followee.followStatus.canFollow}
-				className="ml-10 font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+				className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 				title={
 					!followee.followStatus.canFollow
 						? "The previous unfollow request is not finalized on-chain just yet."

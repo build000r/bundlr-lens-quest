@@ -2,42 +2,48 @@ import React, { useState, useEffect } from "react";
 import { useProfile } from "@lens-protocol/react";
 
 const SuggestedProfile = ({ handle }) => {
-	const { data: profile, loading } = useProfile({ handle });
-	const [profilePicture, setProfilePicture] = useState("");
-	const [coverPicture, setCoverPicture] = useState("");
+    const { data: profile, loading } = useProfile({ handle });
+    const [profilePicture, setProfilePicture] = useState("");
+    const [name, setName] = useState("");
 
-	useEffect(() => {
-		// BUILDOOOORS: Complete this
-	}, [loading]);
+    useEffect(() => {
+        if (profile) {
+            setProfilePicture(profile.picture?.original.url);
+            // setCoverPicture(profile.coverPicture?.original.url);
+            setName(profile.name);
+            console.log(profile);
+        }
+    }, [loading]);
 
-	return (
-		<div className="relative" key={profile?.id}>
-			{coverPicture && (
-				<img
-					className="rounded-lg absolute top-0 left-0 h-32 w-full object-cover px-1 py-1 "
-					src={coverPicture}
-				/>
-			)}
+    return (
 
-			<div className="h-32 w-full ">
-				<div className="mx-2 mt-2 flex flex-row bg-secondary opacity-90 rounded-xl">
-					{profilePicture && (
-						<img
-							className="inline-block h-8 w-8 mb-1 mt-1 ml-1 rounded-full ring-2 ring-white"
-							src={profilePicture}
-							alt={handle}
-						/>
-					)}
+        <li className="py-3 sm:py-4">
+            <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0">
+                    {profilePicture && (
+                        <img className="w-8 h-8 rounded-full"
+                            src={profilePicture}
+                            alt={handle} />
+                    )}
 
-					<h2 className="ml-2 self-center">
-						<a className="font-main underline decoration-contast" href={"/" + handle}>
-							{handle}
-						</a>
-					</h2>
-				</div>
-			</div>
-		</div>
-	);
+                </div>
+                <div className="flex-1 min-w-0">
+                    <a href={"/" + handle} className="text-sm font-medium text-gray-900 truncate">
+                        {name}
+                    </a>
+                    <p className="text-sm text-gray-500 truncate">
+                        {handle}
+                    </p>
+                </div>
+                <a href="#" className="hidden text-sm font-medium text-blue-600 hover:underline">
+                    Follow
+                </a>
+            </div>
+        </li>
+
+
+
+    );
 };
 
 export default SuggestedProfile;

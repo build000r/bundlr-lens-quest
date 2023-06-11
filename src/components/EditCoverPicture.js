@@ -40,7 +40,7 @@ const EditCoverPicture = ({ profile }) => {
 	};
 
 	return (
-		<div className="w-full mt-10 flex flex-col  bg-primary px-1 py-1 rounded-lg">
+		<div className="w-full mt-10 flex flex-col px-1 py-1 rounded-lg">
 			<label className="block uppercase text-xs font-bold mb-2">Cover Picture</label>
 			{profile?.coverPicture && <img src={profile.coverPicture?.original.url} alt="profile_pic" />}
 			{fileToUpload && <img src={URL.createObjectURL(fileToUpload)} alt="profile_pic" />}
@@ -54,7 +54,7 @@ const EditCoverPicture = ({ profile }) => {
 				/>
 				<div className="flex flex-row justify-end align-start w-full bg-primary ">
 					<button
-						className="font-main px-5 text-white rounded-lg bg-background hover:bg-secondary "
+						className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
 						onClick={() => doUpdateCoverPicture()}
 					>
 						upload
