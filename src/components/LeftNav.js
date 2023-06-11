@@ -1,11 +1,13 @@
 import React from "react";
 import ProfileSwitcher from "./ProfileSwitcher";
 import {
-	useActiveProfile,
+  useActiveProfile,
 } from "@lens-protocol/react";
+import { useAccount } from "wagmi";
 
 const LeftNav = () => {
   const { data: activeProfile, loading: activeProfileLoading } = useActiveProfile();
+  const { isConnected } = useAccount();
 
   return (
     <>
@@ -24,8 +26,10 @@ const LeftNav = () => {
               </span>
             </a>
           </div>
+
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="h-0 flex-1 flex flex-col overflow-y-auto">           
+          {isConnected && (
+          <div className="h-0 flex-1 flex flex-col overflow-y-auto">
             {/* Navigation */}
             <nav className="px-3 mt-6">
 
@@ -41,8 +45,8 @@ const LeftNav = () => {
                   Home
                 </a>
 
-                <a href={"/" + activeProfile?.handle}  className={`${window.location.pathname === ("/" + activeProfile?.handle) ? 'bg-gray-200' : 'hover:bg-gray-50'} text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md`} >                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="fill-gray-400 group-hover:fill-gray-500 mr-3 flex-shrink-0 h-6 w-6">
+                <a href={"/" + activeProfile?.handle} className={`${window.location.pathname === ("/" + activeProfile?.handle) ? 'bg-gray-200' : 'hover:bg-gray-50'} text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md`} >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="fill-gray-400 group-hover:fill-gray-500 mr-3 flex-shrink-0 h-6 w-6">
                     <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z">
                     </path>
                   </svg>
@@ -52,23 +56,24 @@ const LeftNav = () => {
                 <a href="/edit-profile" className={`${window.location.pathname === "/edit-profile" ? 'bg-gray-200' : 'hover:bg-gray-50'} text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md`} >
 
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="fill-gray-400 group-hover:fill-gray-500 mr-3 flex-shrink-0 h-6 w-6"><path d="M168,56a8,8,0,0,1,8-8h16V32a8,8,0,0,1,16,0V48h16a8,8,0,0,1,0,16H208V80a8,8,0,0,1-16,0V64H176A8,8,0,0,1,168,56Zm62.56,54.68a103.92,103.92,0,1,1-85.24-85.24,8,8,0,0,1-2.64,15.78A88.07,88.07,0,0,0,40,128a87.62,87.62,0,0,0,22.24,58.41A79.66,79.66,0,0,1,98.3,157.66a48,48,0,1,1,59.4,0,79.66,79.66,0,0,1,36.06,28.75A87.62,87.62,0,0,0,216,128a88.85,88.85,0,0,0-1.22-14.68,8,8,0,1,1,15.78-2.64ZM128,152a32,32,0,1,0-32-32A32,32,0,0,0,128,152Zm0,64a87.57,87.57,0,0,0,53.92-18.5,64,64,0,0,0-107.84,0A87.57,87.57,0,0,0,128,216Z">
-                    </path>
-                    </svg>
+                  </path>
+                  </svg>
                   Edit
                 </a>
-                
+
               </div>
 
               <div>
 
- 
-</div>
+
+              </div>
 
             </nav>
 
-            <ProfileSwitcher showCreateNew={false}/>
+            <ProfileSwitcher showCreateNew={false} />
 
           </div>
+          )}
         </div>
       </div>
 
