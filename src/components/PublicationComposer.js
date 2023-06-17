@@ -86,20 +86,22 @@ const PublicationComposer = ({ publisher }) => {
 	};
 
 	return (
-		<div >
-			<div className="hidden">
-			<ProfileSwitcher showCreateNew={false}/> 
-			</div>
+		<div className="pt-16 lg:pt-0">
 			<div className="flex border-y">
-				<div className="m-2 w-10 py-1">
-					<img className="inline-block h-10 w-10 rounded-full" src={publisher.picture?.original.url} alt="" />
-				</div>
+				<a href={"/" + publisher?.handle} className="m-2 w-10 py-1">
+					{publisher.picture ? (
+						<img className="inline-block h-10 w-10 rounded-full" src={publisher.picture?.original.url} alt="" />
+					) : (
+						<svg className="h-10 w-10 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+							<path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
+						</svg>
+					)}
+				</a>
 				<div className="flex-1 px-2 pt-2 mt-2">
-					<div className="w-full mb-4 border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600">
-						<div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-							<label for="comment" className="sr-only">Your comment</label>
+					<div className="w-full mb-4 border-gray-200 rounded-lg">
+						<div className="px-4 py-2 bg-white rounded-t-lg">
 							<textarea
-								rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a caption..."
+								rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 focus:outline-0 focus:ring-0" placeholder="What is happening?!"
 								id="name"
 								value={caption || ""}
 								onChange={(e) => setCaption(e.target.value)}
@@ -112,10 +114,10 @@ const PublicationComposer = ({ publisher }) => {
 								/>
 							)}
 						</div>
-						<div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+						<div className="flex items-center justify-between px-3 py-2 border-t">
 
 							<div className="flex pl-0 space-x-1 sm:pl-2">
-								<label className="inline-flex justify-center p-2 text-gray-500 rounded-full cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+								<label className="inline-flex justify-center p-2 text-gray-500 rounded-full cursor-pointer hover:text-gray-900 hover:bg-gray-100">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="fill-gray-400 group-hover:fill-gray-500 flex-shrink-0 h-6 w-6">
 										<path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"></path></svg>
 									<input

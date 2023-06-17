@@ -11,7 +11,6 @@ const SuggestedProfile = ({ handle }) => {
             setProfilePicture(profile.picture?.original.url);
             // setCoverPicture(profile.coverPicture?.original.url);
             setName(profile.name);
-            console.log(profile);
         }
     }, [loading]);
 

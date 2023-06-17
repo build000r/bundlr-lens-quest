@@ -16,8 +16,7 @@ const EditProfile = () => {
 			{!isConnected && (
 				<Login />
 			)}
-			<div className="flex flex-col w-full px-5">
-
+			<div className="flex flex-col w-full px-5 pt-16 lg:pt-0">
 				{isConnected && (
 					<div className="flex flex-wrap flex-col">
 						<div className="hidden">

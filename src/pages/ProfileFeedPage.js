@@ -44,18 +44,27 @@ const ProfileFeedPage = () => {
 	}, [profile]);
 
 	return (
-		<div className="w-full">
-
+		<div className="w-full pt-16 lg:pt-0">
 			<div className="top-0 relative h-62 rounded-xl">
-				<img className="z-0 h-32 object-cover w-full"  src={coverPicture} alt="header" />
+				{coverPicture ? (
+				<img className="z-0 h-32 object-cover w-full" src={coverPicture} alt="header" />
+				):(
+					<div className="h-32 bg-gray-200"></div> 
+				)}
 				<div className="px-2">
-					<img
-						className="absolute top-20 z-10 h-24 w-24 rounded-full border-2 border-white "
-						src={profilePicture}
-						alt={currentHandle}
-					/>
-
-					{!activeProfileLoading && !profileLoading && profile?.id !== activeProfile?.id && (
+					{profilePicture ? (
+						<img
+							className="absolute top-20 z-10 h-24 w-24 rounded-full border-2 border-white "
+							src={profilePicture}
+							alt={currentHandle}
+						/>
+					) : (
+						<svg className="h-24 w-24 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+							<path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
+						</svg>
+					)
+					}
+					{!activeProfileLoading && !profileLoading && profile?.id !== activeProfile?.id ? (
 						<div className="flex flex-row justify-end mt-2">
 							{followFee === 0 && <span className="text-gray-700 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-gray-50">Follow Fee: FREE</span>}
 							{followFee !== 0 && (
@@ -63,10 +72,17 @@ const ProfileFeedPage = () => {
 									Follow Fee: {followFee} {followCurrency}
 								</span>
 							)}
-							<FollowButton followee={profile} follower={activeProfile} /> 
+							<FollowButton followee={profile} follower={activeProfile} />
 						</div>
-					)}
-					<h1 className="text-gray-900 hover:text-gray-900 group flex items-center px-2 pt-20 pb-1 text-sm font-medium rounded-md">{profile?.name}</h1>
+					) :
+						(
+							<div className="flex flex-row justify-end mt-2">
+								<a href="/edit-profile" className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+									Edit Profile
+								</a>
+							</div>)
+					}
+					<h1 className="text-gray-900 hover:text-gray-900 group flex items-center px-2 pt-10 pb-1 text-sm font-medium rounded-md">{profile?.name}</h1>
 
 					<h1 className=" text-gray-500 hover:text-gray-900 group flex items-center px-2 text-sm font-medium rounded-md">{profile?.handle}</h1>
 

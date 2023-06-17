@@ -58,7 +58,7 @@ const EditProfilePicture = ({ profile }) => {
 						<img className="h-12 w-12 text-gray-300 rounded-full" src={URL.createObjectURL(fileToUpload)} alt="profile_pic" />
 					)}
 					{!profile?.picture && !fileToUpload && (
-						<svg className="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+						<svg className="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
 							<path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
 						</svg>
 					)}
@@ -89,37 +89,6 @@ const EditProfilePicture = ({ profile }) => {
 					onClick={() => doUpdateProfilePicture()}
 					className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Save</button>
 			</div>
-			{/* 
-			<label className="font-main block uppercase text-xs font-bold mb-2">
-				Profile Picture
-			</label>
-			{profile?.picture && !fileToUpload && (
-				<img width="600" src={profile.picture?.original.url} alt="profile_pic" />
-			)}
-			{fileToUpload && (
-				<img src={URL.createObjectURL(fileToUpload)} alt="profile_pic" />
-			)}
-			<div className="flex flex-row justify-start px-2 py-1 ">
-				<input
-					type="file"
-					onChange={handleFile}
-					className="px-2 text-sm text-white rounded-lg w-full"
-					multiple="single"
-					name="files[]"
-				/>
-				<div className="flex flex-row justify-end align-start w-full bg-primary ">
-					<span className="font-main text-message mr-5">{message}</span>
-
-					<button
-						className="font-main px-5 text-white rounded-lg bg-background enabled:hover:bg-secondary border border-red-500"
-						disabled={txActive}
-						onClick={() => doUpdateProfilePicture()}
-					>
-						1upload
-					</button>
-				</div>
-			</div>
-			*/}
 		</div>
 	);
 };

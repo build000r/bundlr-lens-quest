@@ -21,13 +21,12 @@ const ContentFeedPage = () => {
 		profileId: activeProfile?.id,
 		limit: 10,
 	});
-
 	return (
 		<div className="flex flex-col w-full">
 			{!isConnected && (
 				<Login />
 			)}
-			{!activeProfile && (
+			{!activeProfile && isConnected && (
 				<div className="object-center self-center mt-[5%] text-md ml-5">
 					You don't have an active profile, please{" "}
 					<a href="/edit-profile" className="underline">
@@ -35,13 +34,10 @@ const ContentFeedPage = () => {
 					</a>
 				</div>
 			)}
-			{isConnected && !profileLoading && activeProfile && <PublicationComposer publisher={activeProfile} />}
 
 			{isConnected && !profileLoading && activeProfile && (
 				<div>
-					<div className="hidden">
-						<ProfileSwitcher showCreateNew={false} />
-					</div>
+					<PublicationComposer publisher={activeProfile} />
 
 					{!feed ||
 						(feed.length === 0 && (
