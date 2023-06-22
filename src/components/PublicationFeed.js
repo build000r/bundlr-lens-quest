@@ -9,7 +9,6 @@ const PublicationFeed = ({ profile }) => {
 		loading,
 		hasMore,
 	} = usePublications({ profileId: profile.id });
-
 	return (
 		<div className="flex flex-col">
 			{!loading &&

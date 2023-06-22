@@ -8,19 +8,21 @@ import {
 	useCreatePost,
 	ReferencePolicy,
 	useCreateComment,
-	ProfileOwnedByMe
+	ProfileOwnedByMe,
+	useActiveProfile
 } from "@lens-protocol/react";
 
-
-
-const CommentComposer = ({ publisher, publicationId }) => {
+const CommentComposer = ({ publicationId }) => {
 	const [message, setMessage] = useState("");
 	const [txActive, setTxActive] = useState(false);
 	const [fileToUpload, setFileToUpload] = useState(null);
 	const [fileType, setFileType] = useState();
 	const [caption, setCaption] = useState("");
-	const { execute: create, error, isPending } = useCreateComment({ publisher, upload });
- 
+	const { data: activeProfile, loading: profileLoading } = useActiveProfile();
+
+	const { execute: create, error, isPending } = useCreateComment({ activeProfile, upload });
+
+
 	// Called when the user selects a file to upload
 	const handleFile = async (e) => {
 		const newFiles = e.target.files;
@@ -49,7 +51,7 @@ const CommentComposer = ({ publisher, publicationId }) => {
 			try {
 				await create({
 					publicationId: publicationId,
-					profileId: publisher.id,
+					profileId: activeProfile.id,
 					content: caption,
 					contentFocus: ContentFocus.IMAGE,
 					locale: "en",
@@ -76,7 +78,9 @@ const CommentComposer = ({ publisher, publicationId }) => {
 			// text post
 			try {
 				await create({
+					publicationId: publicationId,
 					content: caption,
+					profileId: activeProfile.id,
 					contentFocus: ContentFocus.TEXT,
 					locale: "en",
 					reference: { type: ReferencePolicyType.FOLLOWERS_ONLY }, // only followers can interact
@@ -89,13 +93,21 @@ const CommentComposer = ({ publisher, publicationId }) => {
 		}
 		setTxActive(false);
 	};
+	console.log(publicationId)
 	return (
 		<div >
-
 			{
 				<div className="flex border-t">
 					<div className="m-2 w-10 py-1">
-						<img className="inline-block h-10 w-10 rounded-full" src={publisher.picture?.original.url} alt="" />
+						{activeProfile?.picture ? (
+							<img className="inline-block h-10 w-10 rounded-full" alt="" src={activeProfile?.picture?.original.url} />
+						) :
+							(
+								<svg className="w-10 h-10 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+									<path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
+								</svg>
+							)
+						}
 					</div>
 					<div className="flex-1 px-2 pt-2 mt-2">
 						<div className="w-full border-gray-200 rounded-lg">

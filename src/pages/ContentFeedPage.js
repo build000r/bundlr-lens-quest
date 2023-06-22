@@ -3,8 +3,6 @@ import Publication from "../components/Publication";
 import { useActiveProfile, useWalletLogin, useFeed } from "@lens-protocol/react";
 import { useAccount } from "wagmi";
 import Login from "../components/Login";
-import ProfileSwitcher from "../components/ProfileSwitcher";
-import { SiSpringCreators } from "react-icons/si";
 import PublicationComposer from "../components/PublicationComposer";
 
 const ContentFeedPage = () => {
@@ -48,13 +46,15 @@ const ContentFeedPage = () => {
 					{feed &&
 						feed.map((publication, id) => {
 							return (
+								<div key={id}>
 								<Publication
-									key={publication.root.id}
+									id={publication.root.id}
 									content={publication.root.metadata?.content}
 									description={publication.root.metadata?.description}
 									media={publication.root.metadata?.media}
 									publisher={publication.root.profile}
 								/>
+								</div>
 							);
 						})}
 				</div>
